@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <title>Home</title>
+</head>
+<body class="lift:content_id=main">
+<div id="main" class="lift:surround?with=default;at=content">
+
+    <table class="table table-striped lift:comet?type=Sessions">
+        <tr>
+            <th>Date</th>
+            <th>Exercise</th>
+            <th>Warmup</th>
+            <th>Work sets</th>
+            <th></th>
+        </tr>
+        <tr class="session">
+            <td class="date">13 Aug 2013</td>
+            <td class="exercise">Squat</td>
+            <td class="warmup">
+                50 kg x 5 <br />
+                70 kg x 5</td>
+            <td class="workSets">
+                90 kg x 3 <br />
+                110 kg x 3 <br />
+                130 kg x
+                <select class="lastSet">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </td>
+            <td><button>Delete</button></td>
+        </tr>
+        <tr><td colspan="10"><button class="next">Next</button></td></tr>
+    </table>
+
+</div>
+</body>
+</html>
