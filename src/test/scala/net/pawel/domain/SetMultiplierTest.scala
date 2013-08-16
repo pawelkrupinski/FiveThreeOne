@@ -1,7 +1,6 @@
-package net.pawel
+package net.pawel.domain
 
 import org.junit.Test
-import net.pawel.comet.SetMultiplier
 import org.specs2.matcher.JUnitMustMatchers
 
 class SetMultiplierTest extends JUnitMustMatchers {
