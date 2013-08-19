@@ -19,9 +19,10 @@ libraryDependencies += "org.mortbay.jetty" % "jetty" % "6.1.26" % "container"
 libraryDependencies ++= {
   val liftVersion = "2.5.1" // Put the current/latest lift version here
   Seq(
-    "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-mapper" % liftVersion % "compile->default",
-    "net.liftweb" %% "lift-wizard" % liftVersion % "compile->default")
+    "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default" withSources(),
+    "net.liftweb" %% "lift-mapper" % liftVersion % "compile->default" withSources(),
+    "net.liftweb" %% "lift-wizard" % liftVersion % "compile->default" withSources(),
+    "net.liftweb" %% "lift-mongodb-record" % liftVersion withSources())
 }
 
 libraryDependencies += "junit" % "junit" % "4.7" % "test"
@@ -41,3 +42,11 @@ libraryDependencies += "org.seleniumhq.selenium" % "selenium-java" % "2.8.0"
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.13"
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.5" % "test"
+
+libraryDependencies += "com.foursquare" %% "rogue-field"         % "2.2.0" withSources() intransitive()
+
+libraryDependencies += "com.foursquare" %% "rogue-core"          % "2.2.0" withSources() intransitive()
+
+libraryDependencies += "com.foursquare" %% "rogue-lift"          % "2.2.0" withSources() intransitive()
+
+libraryDependencies += "com.foursquare" %% "rogue-index"         % "2.2.0" withSources() intransitive()

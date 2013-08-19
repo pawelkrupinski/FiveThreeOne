@@ -5,9 +5,15 @@ trait SessionType {
   val warmupMultipliers: List[SetMultiplier]
   val workingSetMultipliers: List[MultiplierAndReps]
 
-  def sets(oneRepMax: BigDecimal) = Sets(
-    warmupMultipliers.map(_.toSet(oneRepMax, 5)),
-    workingSetMultipliers.map(_.toSet(oneRepMax)))
+  def sets(oneRepMax: BigDecimal, uuidGenerator: () => String) = Sets(
+    warmupMultipliers.map(_.toSet(oneRepMax, 5, uuidGenerator)),
+    workingSetMultipliers.map(_.toSet(oneRepMax, uuidGenerator)))
+}
+
+object SessionType {
+  val values = List(Five, Three, One, Deload)
+
+  def fromName(name: String) = values.find(_.toString == name).get
 }
 
 case object Five extends SessionType {

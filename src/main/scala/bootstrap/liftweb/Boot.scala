@@ -4,11 +4,17 @@ import net.liftweb._
 import common._
 import http._
 import sitemap._
-import mapper._
+import net.liftweb.util.Props
+import net.pawel.config.SessionsMongoIdentifier
 
 class Boot extends Logger {
 
   def boot {
+
+    Props.whereToLook = () =>
+      List(("local", () => Full(classOf[Boot].getResourceAsStream("/props/local.props"))))
+
+    SessionsMongoIdentifier.connectToMongo
 
     // where to search snippet
     LiftRules.addToPackages("net.pawel")

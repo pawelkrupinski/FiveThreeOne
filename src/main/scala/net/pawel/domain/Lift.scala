@@ -4,6 +4,12 @@ sealed trait Lift {
   def name: String
 }
 
+object Lift {
+  val values = List(Squat, Deadlift, Press, Bench)
+
+  def forName(name: String) = values.find(_.name == name).get
+}
+
 case object Squat extends Lift {
   def name: String = "Squat"
 }
