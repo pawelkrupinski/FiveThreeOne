@@ -10,70 +10,7 @@ import java.util.UUID
 import net.liftweb.actor.LiftActor
 import net.pawel.mongo.SessionRepository
 
-object StateActor extends ListenerManager with LiftActor {
-  val uuidGenerator = () => UUID.randomUUID().toString
-
-  val sessionRepository = new SessionRepository
-
-  var state = State(
-    squat = LiftState(BigDecimal("150"), BigDecimal("2.5"), Five, Squat, uuidGenerator),
-    deadLift = LiftState(BigDecimal("160"), BigDecimal("5"), Five, Deadlift, uuidGenerator),
-    press = LiftState(BigDecimal("65"), BigDecimal("2.5"), Five, Press, uuidGenerator),
-    bench = LiftState(BigDecimal("105"), BigDecimal("2.5"), Five, Bench, uuidGenerator),
-    currentLiftIndex = 0
-  )
-
-  var sessions: List[Session] = sessionRepository.sessions().sortBy(-_.date.getMillis)
-
-  protected def createUpdate = NewState(state, sessions)
-
-  override protected def lowPriority = {
-    case NewSession => addWorkout()
-    case DeleteSession(session) => delete(session)
-    case UpdateNextSessionType(lift, sessionType) => updateState(state.updateSessionType(lift, sessionType))
-    case UpdateOneRepMax(lift, oneRepMax) => updateState(state.updateOneRepMax(lift, oneRepMax))
-    case UpdateCurrentLift(liftIndex) => updateState(state.updateCurrentLift(liftIndex))
-    case UpdateSet(set) => updateSet(set)
-  }
-
-  def addWorkout() {
-    val (session, nextState) = state.nextSession
-    state = nextState
-    sessions = session :: sessions
-    updateListeners()
-    sessionRepository.insert(session)
-  }
-
-  def updateSet(set: Set) {
-    updateSessions(sessions.map(_.updateSet(set)))
-  }
-
-  def delete(session: Session) = {
-    updateSessions(sessions.filterNot(_ == session))
-    sessionRepository.delete(session)
-  }
-
-  def updateSessions(sessions: List[Session]) {
-    this.sessions = sessions
-    updateListeners()
-  }
-
-  def updateState(state: State) {
-    this.state = state
-    updateListeners()
-  }
-}
-
-case class NewState(state: State, sessions: List[Session])
-
-case object NewSession
-case class UpdateSet(set: Set)
-case class DeleteSession(session: Session)
-case class UpdateNextSessionType(lift: Lift, sessionType: SessionType)
-case class UpdateOneRepMax(lift: Lift, oneRepMax: BigDecimal)
-case class UpdateCurrentLift(liftIndex: Int)
-
-class Sessions extends CometActor with CometListener {
+class FiveThreeOne extends CometActor with CometListener {
   var state: Option[State] = None
 
   var sessions: List[Session] = Nil

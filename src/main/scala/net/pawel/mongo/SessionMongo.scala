@@ -8,6 +8,8 @@ import net.liftweb.record.field.StringField
 import net.pawel.config.SessionsMongoIdentifier
 import net.pawel.domain.{Lift, Sets, Session}
 import org.joda.time.DateTime
+import org.bson.types.ObjectId
+import net.liftweb.common.Box
 
 class SessionMongo extends MongoRecord[SessionMongo] with ObjectIdKey[SessionMongo] with IndexedRecord[SessionMongo] {
   def meta = SessionMongo
@@ -24,17 +26,19 @@ class SessionMongo extends MongoRecord[SessionMongo] with ObjectIdKey[SessionMon
         warmupSets.get.map(_.toSet),
         workingSets.get.map(_.toSet)
       ),
-      Lift.forName(lift.get)
+      Lift.forName(lift.get),
+      Some(id.toString)
     )
   }
 }
 
 object SessionMongo extends SessionMongo with MongoMetaRecord[SessionMongo] {
-  def fromSession(session: Session) = createRecord
+  def fromSession(session: Session): SessionMongo = createRecord
     .date(session.date.toDate)
     .lift(session.exercise.name)
     .warmupSets(session.sets.warmup.map(SetMongo.fromSet))
     .workingSets(session.sets.workingSets.map(SetMongo.fromSet))
+
 
   override def collectionName = "session"
   override def mongoIdentifier = SessionsMongoIdentifier
