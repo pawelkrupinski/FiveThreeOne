@@ -10,7 +10,7 @@ trait StateFetcher {
 trait StatePersister {
   def update(state: State) = {
     StateMongo.findAll.foreach(_.delete_!)
-    StateMongo.fromState(state).save
+    StateMongo.fromState(state).save(true)
   }
 }
 

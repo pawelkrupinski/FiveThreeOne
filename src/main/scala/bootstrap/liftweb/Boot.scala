@@ -12,7 +12,7 @@ class Boot extends Logger {
   def boot {
 
     Props.whereToLook = () =>
-      List(("local", () => Full(classOf[Boot].getResourceAsStream("/props/local.props"))))
+      List(("local", () => Full(classOf[Boot].getResourceAsStream("/props/prod.props"))))
 
     SessionsMongoIdentifier.connectToMongo
 

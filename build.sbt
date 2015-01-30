@@ -12,12 +12,10 @@ resolvers += "Christoph's Maven Repo" at "http://maven.henkelmann.eu/"
 
 resolvers += "Web plugin repo" at "http://siasia.github.com/maven2"
 
-seq(webSettings: _*)
-
-libraryDependencies += "org.mortbay.jetty" % "jetty" % "6.1.26" % "container"
+jetty()
 
 libraryDependencies ++= {
-  val liftVersion = "2.5.1" // Put the current/latest lift version here
+  val liftVersion = "2.6" // Put the current/latest lift version here
   Seq(
     "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default" withSources(),
     "net.liftweb" %% "lift-mapper" % liftVersion % "compile->default" withSources(),
@@ -43,10 +41,10 @@ libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.13"
 
 libraryDependencies += "com.novocode" % "junit-interface" % "0.5" % "test"
 
-libraryDependencies += "com.foursquare" %% "rogue-field"         % "2.2.0" withSources() intransitive()
+libraryDependencies += "com.foursquare" %% "rogue-field"         % "2.5.0" withSources() intransitive()
 
-libraryDependencies += "com.foursquare" %% "rogue-core"          % "2.2.0" withSources() intransitive()
+libraryDependencies += "com.foursquare" %% "rogue-core"          % "2.5.0" withSources() intransitive()
 
-libraryDependencies += "com.foursquare" %% "rogue-lift"          % "2.2.0" withSources() intransitive()
+libraryDependencies += "com.foursquare" %% "rogue-lift"          % "2.5.0" withSources() intransitive()
 
-libraryDependencies += "com.foursquare" %% "rogue-index"         % "2.2.0" withSources() intransitive()
+libraryDependencies += "com.foursquare" %% "rogue-index"         % "2.5.0" withSources() intransitive()
